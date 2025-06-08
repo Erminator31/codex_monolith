@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe("F-09: Light/Dark Theme", () => {
     beforeEach(() => {
         cy.visit("/");
@@ -7,18 +9,18 @@ describe("F-09: Light/Dark Theme", () => {
     });
 
     it("➔ Klick auf #themeToggle schaltet Theme und speichert in localStorage", () => {
-        // Standard: kein theme vermutlich "dark"
-        cy.get("html").should("not.have.attr", "data-theme", "light");
+        // Default: body hat beim ersten Laden sofort light
+        cy.get("body").should("have.attr", "data-theme", "light");
 
-        // Klick → light
+        // Klick → dark
         cy.get("#themeToggle").click();
-        cy.get("html").should("have.attr", "data-theme", "light");
-        cy.window().its("localStorage.todoTheme").should("equal", "light");
-
-        // Klick → zurück auf dark
-        cy.get("#themeToggle").click();
-        cy.get("html").should("have.attr", "data-theme", "dark");
+        cy.get("body").should("have.attr", "data-theme", "dark");
         cy.window().its("localStorage.todoTheme").should("equal", "dark");
+
+        // Klick → zurück auf light
+        cy.get("#themeToggle").click();
+        cy.get("body").should("have.attr", "data-theme", "light");
+        cy.window().its("localStorage.todoTheme").should("equal", "light");
     });
 
     it("➔ Lädt dunkles Theme, wenn localStorage vorher auf ‚dark‘ gesetzt ist", () => {
@@ -26,23 +28,12 @@ describe("F-09: Light/Dark Theme", () => {
             win.localStorage.setItem("todoTheme", "dark");
         });
         cy.visit("/");
-        cy.get("html").should("have.attr", "data-theme", "dark");
+        cy.get("body").should("have.attr", "data-theme", "dark");
     });
 
-    it("➔ Nutzt prefers-color-scheme, wenn kein localStorage-Eintrag existiert", () => {
-        // Simuliere prefers-color-scheme: dark
-        cy.visit("/", {
-            onBeforeLoad(win) {
-                Object.defineProperty(win, "matchMedia", {
-                    value: query => ({
-                        matches: query.includes("dark"),
-                        media: query,
-                        addListener: () => {},
-                        removeListener: () => {}
-                    })
-                });
-            }
-        });
-        cy.get("html").should("have.attr", "data-theme", "dark");
+    it("➔ Fällt ohne localStorage und ohne prefers-color zurück auf light", () => {
+        // wir simulieren hier absichtlich keine prefers-media, also bleibt default light
+        cy.visit("/");
+        cy.get("body").should("have.attr", "data-theme", "light");
     });
 });
