@@ -48,10 +48,10 @@ describe("F-03: Erledigt-Ansicht", () => {
         cy.get("#taskList li").should("have.length", 3);
     });
 
-    it("➔ Jeder li hat .text, .small (erstellt+erledigt) und einen Wiederherstellen-Button", () => {
+    it("➔ Jeder li hat .text, .timestamps (erstellt+erledigt) und einen Wiederherstellen-Button", () => {
         cy.get("#taskList li").each($li => {
-            cy.wrap($li).find(".text").should("exist");
-            cy.wrap($li).find(".small").should("exist");
+            cy.wrap($li).find(".task-text").should("exist");
+            cy.wrap($li).find(".timestamps").should("exist");
             cy.wrap($li).find("button").should("exist").and("contain.text", "Wiederherstellen");
         });
     });
@@ -59,7 +59,9 @@ describe("F-03: Erledigt-Ansicht", () => {
     it("➔ Sortierung nach doneAt descending funktioniert (neuestes zuerst)", () => {
         // Das erste Element in der Liste sollte "Neue Aufgabe" sein
         cy.get("#taskList li").first().within(() => {
-            cy.get(".text").should("contain.text", "Neue Aufgabe");
+            cy.get(".task-text").should("contain.text", "Neue Aufgabe");
         });
     });
 });
+
+

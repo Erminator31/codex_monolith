@@ -116,8 +116,9 @@ function renderDone() {
 // Ein Task-Listeneintrag erstellen
 function createTaskItem(task, isDoneView = false) {
     const li = taskTemplate.content.firstElementChild.cloneNode(true);
-    const textSpan = li.querySelector('.task-text');
-    const checkbox = li.querySelector('.done-checkbox');
+    const label = li.querySelector('label');
+    const textSpan = label.querySelector('.task-text');
+    const checkbox = label.querySelector('.done-checkbox');
     const badge = li.querySelector('.badge');
     const timestamps = li.querySelector('.timestamps');
     const restoreBtn = li.querySelector('.restore-btn');
@@ -159,7 +160,11 @@ function createTaskItem(task, isDoneView = false) {
     });
 
     // Inline Editing
-    textSpan.addEventListener('dblclick', () => startEdit(textSpan, task));
+    textSpan.addEventListener('click', e => e.preventDefault());
+    textSpan.addEventListener('dblclick', e => {
+        e.preventDefault();
+        startEdit(textSpan, task);
+    });
 
     // Drag & Drop nur in offener Ansicht
     if (!task.isDone) {
