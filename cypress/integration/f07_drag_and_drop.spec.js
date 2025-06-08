@@ -59,7 +59,7 @@ describe("F-07: Drag-and-Drop Reorder (ohne Plugin)", () => {
         cy.get("#taskList li")
             .first()
             .within(() => {
-                cy.get(".text").should("contain.text", "Task B");
+                cy.get(".task-text").should("contain.text", "Task B");
             });
 
         // 8) Überprüfen: localStorage["todoTasks"] enthält B mit order=0, A mit order=1
@@ -72,3 +72,4 @@ describe("F-07: Drag-and-Drop Reorder (ohne Plugin)", () => {
         });
     });
 });
+

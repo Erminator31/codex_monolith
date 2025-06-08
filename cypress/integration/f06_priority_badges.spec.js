@@ -7,7 +7,7 @@ describe("F-06: Priorität & Badges", () => {
     it("➔ Beim Erstellen kann man Priorität wählen und es wird in localStorage gespeichert", () => {
         cy.get("#taskInput").type("Priority Test");
         cy.get("#prioritySelect").select("high"); // „🔥 Hoch“
-        cy.get("#addBtn").click();
+        cy.get("#addTaskBtn").click();
 
         cy.window().then(win => {
             const tasks = JSON.parse(win.localStorage.getItem("todoTasks"));
@@ -80,9 +80,10 @@ describe("F-06: Priorität & Badges", () => {
         cy.get("#sortSelect").select("priority");
         cy.wait(200); // kurzes Warten, damit render() neu sortiert
 
-        cy.get("#taskList li .text").then($els => {
+        cy.get("#taskList li .task-text").then($els => {
             const order = $els.map((i, el) => Cypress.$(el).text()).get();
             expect(order).to.deep.equal(["High", "Medium", "Low"]);
         });
     });
 });
+

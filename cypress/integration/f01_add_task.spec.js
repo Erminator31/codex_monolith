@@ -6,23 +6,23 @@ describe("F-01: Aufgabe anlegen", () => {
         cy.window().then(win => win.localStorage.removeItem("todoTasks"));
     });
 
-    it("➔ #addBtn ist disabled, wenn #taskInput leer ist", () => {
+    it("➔ #addTaskBtn ist disabled, wenn #taskInput leer ist", () => {
         cy.get("#taskInput").should("have.value", "");
-        cy.get("#addBtn").should("be.disabled");
+        cy.get("#addTaskBtn").should("be.disabled");
     });
 
-    it("➔ #addBtn wird aktiv, sobald Text eingegeben wird", () => {
+    it("➔ #addTaskBtn wird aktiv, sobald Text eingegeben wird", () => {
         cy.get("#taskInput").type("Meine erste Aufgabe");
-        cy.get("#addBtn").should("not.be.disabled");
+        cy.get("#addTaskBtn").should("not.be.disabled");
     });
 
     it("➔ Aufgabe erscheint in #taskList und in localStorage", () => {
         const text = "Test-Task";
         cy.get("#taskInput").type(text);
-        cy.get("#addBtn").click();
+        cy.get("#addTaskBtn").click();
 
         // Check: Existiert genau eine li in #taskList mit diesem Text?
-        cy.get("#taskList li .text")
+        cy.get("#taskList li .task-text")
             .should("have.length", 1)
             .and("contain.text", text);
 

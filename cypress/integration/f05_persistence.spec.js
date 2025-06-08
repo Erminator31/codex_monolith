@@ -6,7 +6,7 @@ describe("F-05: Persistenz via localStorage", () => {
 
     it("➔ Add → localStorage updaten sofort", () => {
         cy.get("#taskInput").type("Persistenz-Test");
-        cy.get("#addBtn").click();
+        cy.get("#addTaskBtn").click();
 
         cy.window().then(win => {
             const tasks = JSON.parse(win.localStorage.getItem("todoTasks"));
@@ -18,7 +18,7 @@ describe("F-05: Persistenz via localStorage", () => {
     it("➔ Toggle Done → localStorage wird geupdatet", () => {
         // 1) Task hinzufügen
         cy.get("#taskInput").type("Persistenz-Test2");
-        cy.get("#addBtn").click();
+        cy.get("#addTaskBtn").click();
 
         // 2) Task abhaken
         cy.get("#taskList li input[type='checkbox']").check();
@@ -69,16 +69,17 @@ describe("F-05: Persistenz via localStorage", () => {
 
         // 2) Offene View prüfen: zwei Tasks
         cy.get('a[href="#"]').click();
-        cy.get("#taskList li .text").should("have.length", 2);
-        cy.get("#taskList li .text").then($els => {
+        cy.get("#taskList li .task-text").should("have.length", 2);
+        cy.get("#taskList li .task-text").then($els => {
             const texts = $els.map((i, el) => Cypress.$(el).text()).get();
             expect(texts).to.include.members(["Vorhandener Offener", "Noch ein Offener"]);
         });
 
         // 3) Erledigt-View prüfen: ein Task
         cy.get('a[href="#/done"]').click();
-        cy.get("#taskList li .text")
+        cy.get("#taskList li .task-text")
             .should("have.length", 1)
             .and("contain.text", "Vorhandener Erledigter");
     });
 });
+

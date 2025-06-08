@@ -33,7 +33,7 @@ describe("F-04: Aufgabe wiederherstellen", () => {
 
         // zurück zur offenen View
         cy.get('a[href="#"]').click();
-        cy.get("#taskList li .text").should("contain.text", "Aufgabe zum Wiederherstellen");
+        cy.get("#taskList li .task-text").should("contain.text", "Aufgabe zum Wiederherstellen");
 
         // localStorage prüfen: isDone=false, doneAt=null
         cy.window().then(win => {
@@ -43,3 +43,4 @@ describe("F-04: Aufgabe wiederherstellen", () => {
         });
     });
 });
+
