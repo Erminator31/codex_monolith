@@ -1,0 +1,90 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --accent-color: #6200ea;
+    --badge-high: #e53935;
+    --badge-medium: #fb8c00;
+    --badge-low: #43a047;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --accent-color: #bb86fc;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0 1rem;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+nav a {
+    margin-right: 1rem;
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+nav a:last-child { margin-right: 0; }
+
+#addTaskSection {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#taskInput {
+    flex: 1;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.task-item.dragging {
+    opacity: 0.5;
+}
+
+.badge {
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    color: #fff;
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.badge.high { background-color: var(--badge-high); }
+.badge.medium { background-color: var(--badge-medium); }
+.badge.low { background-color: var(--badge-low); }
+
+.restore-btn {
+    margin-left: auto;
+}
+
+.timestamps {
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+}
+
+.toolbar {
+    margin-bottom: 0.5rem;
+}

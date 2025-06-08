@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>To-do Liste</h1>
+        <nav>
+            <a href="#/">Offene Aufgaben</a>
+            <a href="#/done">Erledigte Aufgaben</a>
+        </nav>
+        <button id="themeToggle" aria-label="Theme wechseln">🌗</button>
+    </header>
+
+    <main>
+        <section id="addTaskSection">
+            <input id="taskInput" type="text" maxlength="200" placeholder="Neue Aufgabe...">
+            <select id="prioritySelect">
+                <option value="high">Hoch</option>
+                <option value="medium" selected>Mittel</option>
+                <option value="low">Niedrig</option>
+            </select>
+            <button id="addTaskBtn" disabled>Hinzufügen</button>
+        </section>
+
+        <section id="tasksSection">
+            <div class="toolbar">
+                <label>Sortieren:
+                    <select id="sortSelect">
+                        <option value="order">Reihenfolge</option>
+                        <option value="priority">Priorität</option>
+                    </select>
+                </label>
+            </div>
+            <ul id="taskList" class="task-list"></ul>
+        </section>
+
+        <section id="doneSection" hidden>
+            <ul id="doneList" class="task-list"></ul>
+        </section>
+    </main>
+
+    <template id="taskItemTemplate">
+        <li class="task-item" draggable="true" data-id="">
+            <label>
+                <input type="checkbox" class="done-checkbox" data-id="">
+                <span class="task-text"></span>
+            </label>
+            <span class="badge"></span>
+            <span class="timestamps"></span>
+            <button class="restore-btn" hidden>Wiederherstellen</button>
+        </li>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
