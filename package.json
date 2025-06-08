@@ -1,0 +1,16 @@
+{
+  "name": "codex_monolith",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "start": "live-server --host=127.0.0.1 --port=3000 ."
+
+  },
+  "private": true,
+  "devDependencies": {
+
+  }
+}
