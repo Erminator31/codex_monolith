@@ -22,6 +22,7 @@ let tasks = loadTasks();
 
 const PRIORITY_WEIGHT = { high: 0, medium: 1, low: 2 };
 
+
 const taskInput = document.getElementById('taskInput');
 const addTaskBtn = document.getElementById('addTaskBtn');
 const prioritySelect = document.getElementById('prioritySelect');
@@ -36,6 +37,7 @@ const doneView = document.getElementById('doneView');
 function sortByPriority(list) {
   list.sort((a, b) => PRIORITY_WEIGHT[a.priority] - PRIORITY_WEIGHT[b.priority]);
 }
+
 
 // THEME -----------------------------------------------------------
 function applyTheme(t) {
@@ -80,6 +82,7 @@ sortSelect.addEventListener('change', () => {
   render();
 });
 
+
 addTaskBtn.addEventListener('click', () => {
   const text = taskInput.value.trim();
   if (!text) return;
@@ -117,6 +120,7 @@ function sortOpen(list) {
   const mode = sortSelect.value;
   if (mode === 'priority') {
     sortByPriority(list);
+
   } else if (mode === 'created') {
     list.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt));
   } else {
