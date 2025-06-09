@@ -20,6 +20,9 @@ function saveTasks() {
 
 let tasks = loadTasks();
 
+const PRIORITY_WEIGHT = { high: 0, medium: 1, low: 2 };
+
+
 const taskInput = document.getElementById('taskInput');
 const addTaskBtn = document.getElementById('addTaskBtn');
 const prioritySelect = document.getElementById('prioritySelect');
@@ -29,6 +32,12 @@ const sortSelect = document.getElementById('sortSelect');
 const themeToggle = document.getElementById('themeToggle');
 const openView = document.getElementById('openView');
 const doneView = document.getElementById('doneView');
+
+// Prioritäts-Sortierung High → Medium → Low
+function sortByPriority(list) {
+  list.sort((a, b) => PRIORITY_WEIGHT[a.priority] - PRIORITY_WEIGHT[b.priority]);
+}
+
 
 // THEME -----------------------------------------------------------
 function applyTheme(t) {
@@ -57,6 +66,22 @@ function updateAddBtn() {
 updateAddBtn();
 
 taskInput.addEventListener('input', updateAddBtn);
+
+// Sortier-Handler
+sortSelect.addEventListener('change', () => {
+  // Bei Auswahl nach Priorität sortieren wir sofort High→Medium→Low
+  if (sortSelect.value === 'priority') {
+    const openTasks = tasks.filter(t => !t.isDone);
+    sortByPriority(openTasks);
+    // Reihenfolge zur Persistenz im Taskobjekt speichern
+    openTasks.forEach((t, idx) => {
+      t.order = idx;
+    });
+    saveTasks();
+  }
+  render();
+});
+
 
 addTaskBtn.addEventListener('click', () => {
   const text = taskInput.value.trim();
@@ -94,8 +119,8 @@ function render() {
 function sortOpen(list) {
   const mode = sortSelect.value;
   if (mode === 'priority') {
-    const weight = {high:0, medium:1, low:2};
-    list.sort((a,b) => weight[a.priority] - weight[b.priority]);
+    sortByPriority(list);
+
   } else if (mode === 'created') {
     list.sort((a,b) => new Date(a.createdAt) - new Date(b.createdAt));
   } else {
