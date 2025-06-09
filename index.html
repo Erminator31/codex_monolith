@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Todo Liste</h1>
+    <nav>
+      <a href="#/" id="openLink">Offen</a>
+      <a href="#/done" id="doneLink">Erledigt</a>
+    </nav>
+    <button id="themeToggle">🌓</button>
+  </header>
+
+  <main>
+    <!-- Offene Aufgaben -->
+    <section id="openView">
+      <div class="add-row">
+        <input type="text" id="taskInput" maxlength="200" placeholder="Neue Aufgabe">
+        <select id="prioritySelect">
+          <option value="low">🟢 Niedrig</option>
+          <option value="medium" selected>⚡ Mittel</option>
+          <option value="high">🔥 Hoch</option>
+        </select>
+        <button id="addTaskBtn" disabled>Hinzufügen</button>
+      </div>
+      <div class="sort-row">
+        <label for="sortSelect">Sortieren:</label>
+        <select id="sortSelect">
+          <option value="order">Benutzerdefiniert</option>
+          <option value="priority">Priorität</option>
+          <option value="created">Erstellt</option>
+        </select>
+      </div>
+      <ul id="taskList"></ul>
+    </section>
+
+    <!-- Erledigte Aufgaben -->
+    <section id="doneView" hidden>
+      <ul id="doneList"></ul>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
